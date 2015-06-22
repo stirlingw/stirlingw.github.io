@@ -1,0 +1,50 @@
+<div class="module" >
+    <div class="moduleBody">
+        <div class="headerQuoteContainer">
+            <div class="sectionQuote nasdaqChange">
+                <div class="sectionQuoteDetail">
+                    <span class="nasdaqChangeHeader">{{GSQ.t}} on {{GSQ.e}}</span>
+                    <br class="clear"><br class="clear">
+                    <span style="font-size: 23px;">{{GSQ.l_cur | currency : symbol : 2}}</span> <span>USD</span><br>
+                </div>
+            </div>
+            <div class="sectionQuote priceChange">
+                <div class="sectionQuoteDetail">
+                    <span class="priceDetail">Change	(% chg)</span>
+                    <br class="clear"><br class="clear">
+                    <span class="valueContent">
+                        <span ng-class="{'neg': GSQ.c.includes('-') == true, 'pos': GSQ.c.includes('-') !== true }">{{GSQ.c}}</span>
+                        <span class="valueContentPercent">
+                            <span ng-class="{'neg': GSQ.cp.includes('-') == true, 'pos': GSQ.cp.includes('-') !== true }">({{GSQ.cp}})</span>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="googleSectionQuote">
+                <div class="sectionQuoteDetailTop">
+                    <span>Last Extended Trade Price</span>
+                    <br class="clear">
+                    <span class="sectionQuoteDetailHigh">{{GSQ.el | currency : symbol : 2}}</span>
+                </div>
+                <div class="sectionQuoteDetail">
+                    <span>Last Extended Trade Time</span>
+                    <br class="clear">
+                    <span class="sectionQuoteDetailLow">{{GSQ.elt}}</span>
+                </div>
+            </div>
+            <div class="googleSectionQuote googlePriceChange">
+                <div class="sectionQuoteDetail">
+                    <span class="priceDetail">Extended Trading Change (% chg)</span>
+                    <br class="clear"><br class="clear">
+                    <span class="valueContent">
+                        <span ng-class="{'neg': GSQ.ec.includes('-') == true, 'pos': GSQ.ec.includes('-') !== true }">{{GSQ.ec}}</span>
+                        <span class="valueContentPercent">
+                            <span ng-class="{'neg': GSQ.ecp.includes('-') == true, 'pos': GSQ.ecp.includes('-') !== true }">({{GSQ.ecp}})</span>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <br class="clear">
+        </div>
+    </div>
+</div>

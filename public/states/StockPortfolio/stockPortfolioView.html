@@ -1,0 +1,146 @@
+<style>
+    .neg {
+        color: #DC0A0A;
+    }
+    .pos {
+        color: #458d37;
+    }
+</style>
+
+<!-- Start Page Header -->
+<div class="page-header" style="margin-top: 60px;">
+    <h1>Stock Portfolio</h1>
+
+    <p class="lead">
+        Start with clicking <button class="btn btn-xs btn-primary" disabled><span class= "glyphicon glyphicon-plus"></span> Add Stock</button>
+        to add a stock to your portfolio
+    </p>
+    <p>Limit 25 stocks total, and 100,000 shares total. Refreshing screen, or navigating away from screen will remove stocks</p>
+</div>
+<!-- End Page Header -->
+<div class="row well">
+    <!-- Start Side Div -->
+    <div class="col-xs-7">
+        <div class='input-group'>
+            <input class="form-control" type="text" ng-model="search.$">
+            <span class="input-group-btn">
+                <button class="btn btn-success" type="button" disabled>
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="col-xs-2"></div>
+    <div class="col-xs-3">
+        <a class="btn btn-block btn-primary" data-target="#myModal" data-toggle="modal" href="#"><span class="glyphicon glyphicon-plus"></span> Add Stock </a>
+    </div>
+    <!-- End Side Div -->
+</div>
+<!-- Start Row -->
+<div class="row">
+    <!-- Start Person Table -->
+    <div class="container col-xs-12">
+        <table class="table table-striped col-xs-12" id="searchObjResults">
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Stock</th>
+                <th>Exchange</th>
+                <th>PV</th>
+                <th>CV</th>
+                <th>Shares</th>
+                <th>SPV</th>
+                <th>SP %</th>
+                <th>Action</th>
+            </tr>
+            <tr ng-repeat="s in stocks.stocks | filter:search:strict">
+                <td>{{$index + 1}}</td>
+                <td>{{s.name}}</td>
+                <td>{{s.symbol}}</td>
+                <td>{{s.exchange}}</td>
+                <td>{{s.purchased_value | currency}}</td>
+                <td>{{s.current_value | currency}}</td>
+                <td>{{s.shares | number}}</td>
+                <td ng-class="{'neg': s.spv.toString().includes('-') == true, 'pos': s.spv.toString().includes('-') !== true }">{{s.spv | currency}}</td>
+                <td>{{s.sp | number: 1}}%</td>
+                <td class="col-xs-2">
+                    <button class="btn btn-danger btn-sm" type="button" ng-click="removeStock(s, $index);"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+                </td>
+            </tr>
+            <tr><td colspan="4" ng-show='stocks.stocks.length == 0'>No stocks listed. Please add stock to the list.</td></tr>
+            <tr><td colspan="4" ng-show='stocks.stocks == undefined'>Loading...</td></tr>
+            <tr ng-show='stocks.stocks.length > 0'>
+                <td colspan="6"></td>
+                <td style=" border-top: 4px solid black;"><strong>{{stocks.shareSum | number}}</strong></td>
+                <td style=" border-top: 4px solid black;" ng-class="{'neg': stocks.spvSum.toString().includes('-') == true, 'pos': stocks.spvSum.toString().includes('-') !== true }"><strong>{{stocks.spvSum | currency }}</strong></td>
+                <td colspan="2"></td>
+            </tr>
+        </table>
+        <br/>
+        <hr>
+        <ul style="list-style-type: none;">
+            <li><strong>PV:</strong>  Purchased Value</li>
+            <li><strong>CV:</strong>  Current Value</li>
+            <li><strong>SPV:</strong> Stock Portfolio Value (stock current_value * shares - stock purchased_value * shares)</li>
+            <li><strong>SP%:</strong> Stock Portfolio %</li>
+        </ul>
+    </div>
+    <!-- End Person Table -->
+
+</div>
+<!-- End Row -->
+<!-- Start Modal Window -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add New Stock To Portfolio</h4>
+            </div>
+            <div class="modal-body">
+                <div class="well">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="stock.selected" placeholder="Type in a stock" typeahead="label as label.label for label in getStock($viewValue)" typeahead-loading="loadingStocks" class="form-control" typeahead-editable="false" typeahead-on-select='selectedStock($model)' >
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="button" disabled>
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div><!-- /input-group -->
+                    <i ng-show="loadingStocks" class="glyphicon glyphicon-refresh"></i>
+                </div>
+                <div class="alert alert-danger" role="alert" ng-if="modalError !== null">{{modalError}}</div>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="stockName" class="col-sm-3 control-label">Stock Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" ng-model="stockInfo.name" class="form-control" id="stockName" disabled placeholder="Stock Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="stockSymbol" class="col-sm-3 control-label">Stock Symbol</label>
+                        <div class="col-sm-9">
+                            <input type="text" ng-model="stockInfo.symbol" class="form-control" id="stockSymbol" disabled placeholder="Stock Symbol">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="currentValue" class="col-sm-3 control-label">Current Value</label>
+                        <div class="col-sm-9">
+                            <input type="text" ng-model="stockInfo.purchased_value" class="form-control" id="currentValue" disabled placeholder="Current Value">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="shares" class="col-sm-3 control-label">Shares</label>
+                        <div class="col-sm-9">
+                            <input type="text" ng-model="stockInfo.shares" class="form-control" id="shares" placeholder="Shares">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="submitForm()">Save Stock Changes</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="module" >
+    <div class="moduleBody">
+        <div class="headerQuoteContainer">
+            <div class="sectionQuote nasdaqChange">
+                <div class="sectionQuoteDetail">
+                    <span class="nasdaqChangeHeader">{{MSQ.Name}} on {{stock.exchange}}</span>
+                    <br class="clear"><br class="clear">
+                    <span style="font-size: 23px;">{{MSQ.LastPrice | currency : symbol : 2}}</span> <span>USD</span><br>
+                </div>
+            </div>
+            <div class="sectionQuote priceChange">
+                <div class="sectionQuoteDetail">
+                    <span class="priceDetail">Change	(% chg)</span>
+                    <br class="clear"><br class="clear">
+                    <span class="valueContent">
+                        <span ng-class="{'neg': MSQ.Change.includes('-') == true, 'pos': MSQ.Change.includes('-') !== true }">{{MSQ.Change | number : 2}}</span>
+                        <span class="valueContentPercent">
+                            <span ng-class="{'neg': MSQ.ChangePercent.includes('-') == true, 'pos': MSQ.ChangePercent.includes('+') == true }">({{MSQ.ChangePercent | number : 2}})</span>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="googleSectionQuote">
+                <div class="sectionQuoteDetailTop">
+                    <span>Open</span>
+                    <br class="clear">
+                    <span>{{MSQ.Open | currency : symbol : 2}}</span>
+                </div>
+                <div class="sectionQuoteDetail">
+                    <span>Avg Volume</span>
+                    <br class="clear">
+                    <span>{{MSQ.Volume | number}}</span>
+                </div>
+            </div>
+            <div class="sectionQuote">
+                <div class="sectionQuoteDetailTop">
+                    <span>Day's High</span>
+                    <br class="clear">
+                    <span class="sectionQuoteDetailHigh">{{MSQ.High | currency : symbol : 2}}</span>
+                </div>
+                <div class="sectionQuoteDetail">
+                    <span>Day's Low</span>
+                    <br class="clear">
+                    <span class="sectionQuoteDetailLow">{{MSQ.Low | currency : symbol : 2}}</span>
+                </div>
+            </div>
+            <div class="sectionQuote">
+                <div class="sectionQuoteDetailTop">
+                    <span>Change YTD</span>
+                    <br class="clear">
+                    <span class="sectionQuoteDetailHigh">{{MSQ.ChangeYTD | currency : symbol : 2}}</span>
+                </div>
+                <div class="sectionQuoteDetail">
+                    <span>Change % YTD</span>
+                    <br class="clear">
+                    <span class="sectionQuoteDetailLow">{{MSQ.ChangePercentYTD | number : 3}}</span>
+                </div>
+            </div>
+            <br class="clear">
+
+        </div>
+    </div>
+</div>

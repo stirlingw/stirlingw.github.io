@@ -1,0 +1,67 @@
+<div class="module">
+    <div class="moduleBody">
+        <div class="headerQuoteContainer">
+            <div class="sectionQuote nasdaqChange">
+                <div class="sectionQuoteDetail">
+                    <span class="nasdaqChangeHeader">{{YSQ.symbol}} on {{YSQ.StockExchange}}</span>
+                    <br class="clear"><br class="clear">
+                    <span style="font-size: 23px;">{{YSQ.LastTradePriceOnly | currency : symbol : 2}}</span><span>USD</span><br>
+                    <span class="nasdaqChangeTime">{{YSQ.utctime | date:'dd-MM-yyyy'}}</span>
+                </div>
+            </div>
+            <div class="sectionQuote priceChange">
+                <div class="sectionQuoteDetail">
+                    <span class="priceDetail">Change	(% chg)</span>
+                    <br class="clear"><br class="clear">
+                    <span class="valueContent">
+                        <span ng-class="{'neg': YSQ.Change.includes('-') == true, 'pos': YSQ.Change.includes('-') !== true }">{{YSQ.Change}}</span>
+                    </span>
+                </div>
+            </div>
+            <div class="sectionQuote">
+                <div class="sectionQuoteDetail">
+                    <span>Market Capitalization</span>
+                    <br class="clear">
+                    <span>{{YSQ.MarketCapitalization}}</span>
+                </div>
+            </div>
+            <div class="sectionQuote">
+                <div class="sectionQuoteDetailTop">
+                    <span>Days Range</span>
+                    <br class="clear">
+                    <span class="sectionQuoteDetailHigh">{{YSQ.DaysRange}}</span>
+                </div>
+                <div class="sectionQuoteDetail">
+                    <span>Daily Volume</span>
+                    <br class="clear">
+                    <span>{{YSQ.AverageDailyVolume | number}}</span>
+                </div>
+            </div>
+            <div class="sectionQuote">
+                <div class="sectionQuoteDetailTop">
+                    <span>Day's High</span>
+                    <br class="clear">
+                    <span class="sectionQuoteDetailHigh">{{YSQ.DaysHigh | currency : symbol : 2}}</span>
+                </div>
+                <div class="sectionQuoteDetail">
+                    <span>Day's Low</span>
+                    <br class="clear">
+                    <span class="sectionQuoteDetailLow">{{YSQ.DaysLow | currency : symbol : 2}}</span>
+                </div>
+            </div>
+            <div class="sectionQuote">
+                <div class="sectionQuoteDetailTop">
+                    <span>Year High</span>
+                    <br class="clear">
+                    <span class="sectionQuoteDetailHigh">{{YSQ.YearHigh | currency : symbol : 2}}</span>
+                </div>
+                <div class="sectionQuoteDetail">
+                    <span>Year Low</span>
+                    <br class="clear">
+                    <span class="sectionQuoteDetailLow">{{YSQ.YearLow | currency : symbol : 2}}</span>
+                </div>
+            </div>
+            <br class="clear">
+        </div>
+    </div>
+</div>

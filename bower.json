@@ -1,0 +1,19 @@
+{
+  "name": "data-visualization",
+  "version": "0.0.1",
+  "dependencies": {
+    "bootstrap": "latest",
+    "angular": "latest",
+    "angular-animate": "latest",
+    "angular-route": "latest",
+    "angular-ui-bootstrap-bower": "latest",
+    "bootstrap": "latest",
+    "crossfilter": "latest",
+    "d3": "latest",
+    "font-awesome": "latest",
+    "jquery": "latest",
+    "lodash": "latest",
+    "moment": "latest",
+    "ui-router": "latest"
+  }
+}

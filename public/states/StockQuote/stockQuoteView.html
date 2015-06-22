@@ -1,0 +1,234 @@
+<style>
+    /***************/
+    /* Quote Header */
+    /***************/
+
+    .headerQuoteContainer {
+        display: inline;
+        float:left;
+        font-size:12px;
+        font-family: arial;
+        border-bottom: 3px solid #CCCCCC;
+        padding-bottom: 20px;
+        margin-bottom:3px;
+        margin-top: 20px;
+        width:100%;
+    }
+
+    .nasdaqChange {
+        width: 152px !important;
+        border-left: 0px !important;
+    }
+
+    .nasdaqChangeTime {
+        font-size: 9px;
+        color: #DCOAOA;
+    }
+
+    .nasdaqChangeHeader {
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+    .priceChange {
+        width: 152px !important;
+    }
+    .googlePriceChange{
+        width: 254px !important;
+    }
+
+    .priceDetail {
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+    .sectionQuote {
+        float:left;
+        border-left: 1px solid #CCCCCC;
+        margin-right:10px;
+        padding-left: 10px;
+        width: 127px;
+        height: 85px;
+    }
+
+    .googleSectionQuote{
+        float:left;
+        border-left: 1px solid #CCCCCC;
+        margin-right:10px;
+        padding-left: 10px;
+        width: 264px;
+        height: 85px;
+    }
+
+    /*.sectionQuoteDetailTop {*/
+    .sectionQuoteDetailTop {
+        border-bottom: 1px dotted #CCCCCC;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .sectionQuoteDetail {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .sectionQuoteDetailHigh {
+        font-size: 14px;
+        font-weight: bold;
+        color: #458D37;
+    }
+
+    .sectionQuoteDetailLow {
+        font-size: 14px;
+        font-weight: bold;
+        color: #DC0A0A;
+    }
+
+    .sectionQuoteDetail .valueContent {
+        font-size: 22px;
+    }
+
+    .sectionQuoteDetail .valueContent .neg {
+        color: #DC0A0A;
+    }
+
+    .sectionQuoteDetail .valueContent .pos {
+        color: #458d37;
+    }
+
+    .sectionQuoteDetail .valueContent .valueContentPercent {
+        font-size: 13px;
+        color: #458D37;
+    }
+
+    .sectionQuoteDetail .valueContent .valueContentPercent .neg {
+        color: #dc0a0a;
+    }
+
+    .sectionQuoteDetail .valueContent .valueContentPercent .pos {
+        color: #458d37;
+    }
+
+    .feature {
+        /* border-top: 1px dotted #CCC; */
+        padding: 0 0 15px 0;
+        margin: 10px 0 0 0;
+    }
+
+    .feature {
+        float: left;
+        width: 100%;
+        padding: 0;
+    }
+
+    .feature p {
+        font-size: 12px;
+        line-height: 1.5;
+        color: #666;
+        display: table;
+        padding: 0;
+    }
+
+    .feature a {
+        color: #000;
+    }
+
+    .feature h2 {
+        font-size: 15px;
+        margin: 0 0 5px 0;
+    }
+
+    h2 {
+        display: block;
+        font-size: 1.5em;
+        -webkit-margin-before: 0.83em;
+        -webkit-margin-after: 0.83em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        font-weight: bold;
+    }
+
+    /*stockquote*/
+    body { font: 12px Arial;}
+
+    path {
+        stroke: steelblue;
+        stroke-width: 2;
+        fill: none;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: grey;
+        stroke-width: 1;
+        shape-rendering: crispEdges;
+    }
+
+    .wiki-summary p{
+        font-size: 12px;
+        line-height: 1.5;
+        color: #666;
+        display: table;
+        padding: 0;
+    }
+
+</style>
+<div class="page-header" style="margin-top: 60px;">
+    <h1>Stock Quote Look Up</h1>
+    <p class="lead">
+        Start searching <button class="btn btn-xs btn-success" disabled><span class="glyphicon glyphicon-search"></span></button>
+        for a new stock
+    </p>
+</div>
+
+<!-- Main Content -->
+<div class="container" >
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-0 col-md-10 col-md-offset-1">
+            <div class="col-xs-12">
+                <div class="well">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="stock.selected" placeholder="Type in a stock" typeahead="label as label.label for label in getStock($viewValue)" typeahead-loading="loadingStocks" class="form-control" typeahead-editable="false" typeahead-on-select='selectedStock($model)' >
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="button" disabled>
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div><!-- /input-group -->
+                    <i ng-show="loadingStocks" class="glyphicon glyphicon-refresh"></i>
+                </div>
+            </div>
+            <div class="col-xs-12" ng-if="stockInfo !== undefined">
+                <h4>Google Finance Ticker</h4>
+                <google-stock-quote-directive></google-stock-quote-directive>
+            </div>
+            <!-- // End Google Finance  -->
+            <div class="col-xs-12" ng-if="stockInfo !== undefined">
+                <h4>Markit On Demand Ticker</h4>
+                <mark-it-stock-quote-directive></mark-it-stock-quote-directive>
+            </div>
+            <!-- / Mark It On Demand -->
+            <div class="col-xs-12" ng-if="stockInfo !== undefined">
+                <h4>Yahoo Finance Ticker</h4>
+                <yahoo-stock-quote-directive></yahoo-stock-quote-directive>
+            </div>
+            <div class="col-xs-12" ng-if="stockInfo !== undefined">
+                <div class="col-xs-5">
+                    <h4>Headlines</h4>
+                    <yahoo-stock-news-directive></yahoo-stock-news-directive>
+                </div>
+                <div class="col-xs-7">
+                    <h4>History</h4>
+                    <yahoo-stock-line-chart-directive></yahoo-stock-line-chart-directive>
+                </div>
+                <div class="col-xs-7">
+                    <h4>Business Summary</h4>
+                    <wiki-summary-directive></wiki-summary-directive>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

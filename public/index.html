@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <base href="/">
+
+    <title>Data Visualization</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- JS -->
+    <script src="libs/angular/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
+    <script src="libs/ui-router/release/angular-ui-router.min.js"></script>
+    <script src="libs/crossfilter/crossfilter.min.js"></script>
+    <script src="libs/d3/d3.min.js"></script>
+    <script src="libs/angular-ui-bootstrap-bower/ui-bootstrap.min.js"></script>
+    <script src="libs/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js"></script>
+    <script src="libs/moment/min/moment.min.js"></script>
+    <script src="libs/lodash/lodash.min.js"></script>
+
+    <!-- ANGULAR CUSTOM -->
+    <script src="app.js"></script>
+    <script src="appRoutes.js"></script>
+
+    <!-- ANGULAR CONTROLLERS -->
+    <script src="states/StockQuote/stockQuoteController.js"></script>
+    <script src="states/StockPortfolio/stockPortfolioController.js"></script>
+
+    <!-- ANGULAR DIRECTIVES -->
+    <script src="components/GoogleStockQuote/googleStockQuoteDirective.js"></script>
+    <script src="components/MarkItStockQuote/markItStockQuoteDirective.js"></script>
+    <script src="components/YahooStockQuote/yahooStockQuoteDirective.js"></script>
+    <script src="components/YahooStockLineChart/yahooStockLineChartDirective.js"></script>
+    <script src="components/YahooStockNews/yahooStockNewsDirective.js"></script>
+    <script src="components/WikiSummary/wikiSummaryDirective.js"></script>
+
+    <!-- ANGULAR SERVICES -->
+    <script src="states/StockQuote/stockQuoteService.js"></script>
+    <script src="states/StockPortfolio/stockPortfolioService.js"></script>
+    <script src="shared/Services/superModelService.js"></script>
+    <script src="components/GoogleStockQuote/googleStockQuoteService.js"></script>
+    <script src="components/MarkItStockQuote/markItStockQuoteService.js"></script>
+    <script src="components/YahooStockQuote/yahooStockQuoteService.js"></script>
+    <script src="components/YahooStockLineChart/yahooStockLineChartService.js"></script>
+    <script src="components/YahooStockNews/yahooStockNewsService.js"></script>
+    <script src="components/WikiSummary/wikiSummaryService.js"></script>
+
+    <!-- ANGULAR FILTERS -->
+    <script src="shared/Filters/truncate.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body ng-app="visualization" ng-controller="AppController">
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html"></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a ui-sref="stockquote">Stock Quote</a></li>
+                <li><a ui-sref="stockportfolio">Stock Portfolio</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- ANGULAR DYNAMIC CONTENT -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-0 col-md-10 col-md-offset-1">
+            <!-- Main Content -->
+            <div ui-view></div>
+        </div>
+    </div>
+</div>
+
+
+<!-- jQuery -->
+<script src="libs/jquery/dist/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+</div>
+</body>
+</html>
